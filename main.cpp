@@ -1,15 +1,12 @@
-#include <fstream>
 #include <array>
-#include <chrono>
 #include "Date.h"
 #include "Month_Year.h"
-
-#define time_point std::chrono::steady_clock::now()
+#include "Logger.h"
 
 int main() {
 	try {
 		std::string out_file_name, in_file_name;
-		std::map<std::pair<std::string, Month_Year>, int> records;
+		std::map<std::pair<std::string, Month_Year>, int> parsing_records;
 		std::cout << "Enter name of file with data. //Example: Data_file.csv//: ";
 		std::cin >> in_file_name;
 		std::cout << "\nEnter new name of report. //Example: Report_file.csv//: ";
@@ -18,10 +15,14 @@ int main() {
 		std::ofstream out;
 		char separator = '0';
 		in.open(in_file_name);
+		if (!in.is_open()) {
+			std::cout << "Error. There is no file with such name: " << in_file_name << '\n';
+			return 0;
+		}
 		out.open(out_file_name);
-		std::array<int, 3> col{}; //col[0] - number of name column, col[1] - number of date column, col[2] - number of hours column
+		std::array<int, 3> col{-1,-1,-1}; //col[0] - number of name column, col[1] - number of date column, col[2] - number of hours column
 		int cnt = 0;
-		auto start = time_point;
+		Logger log(in_file_name, out_file_name, "Finding separator and count columns.");
 		std::string t_str;
 		std::getline(in, t_str);
 		std::stringstream sstream(t_str);
@@ -54,13 +55,21 @@ int main() {
 				t_str.clear();
 			}
 		}
-		auto end = time_point;
-		std::chrono::duration<double> elapsed_seconds = end - start;
-		std::cout << '\n' << "Time to count all columns and find separator: " << elapsed_seconds.count() << " s\n";
+		log.EndPoint();
+		for (auto el : col) {
+			if (el == -1) {
+				std::cout << "Failed! See Logs.txt last line about problem.";
+				log.UpdStartPointAndMessage("Error! The needed column can't be found!");
+				log.EndPoint();
+				in.close();
+				out.close();
+				return 0;
+			}
+		}
 		const int max_column = cnt;
 		cnt = 0;
-		start = time_point;
 		out << "Name" << separator << "Month" << separator << "Total hours\n";
+		log.UpdStartPointAndMessage("Reading and parsing data from input_file.");
 		std::pair<std::string, Month_Year> temp_p;
 		while (in) {
 			std::string temp;
@@ -77,25 +86,22 @@ int main() {
 				temp_p.second = convert(temp);
 			}
 			else if (col[2] == cnt) {
-				records[temp_p] += std::stoi(temp);
+				parsing_records[temp_p] += std::stoi(temp);
 			}
 			cnt++;
 			if (cnt == max_column) {
 				cnt = 0;
 			}
 		}
-		end = time_point;
-		elapsed_seconds = end - start;
-		std::cout << '\n' << "Time to parce all data from file: " << elapsed_seconds.count() << " s\n";
-		start = time_point;
-		for (const auto& el : records) {
+		log.EndPoint();
+		log.UpdStartPointAndMessage("Writing data into output_file.");
+		for (const auto& el : parsing_records) {
 			out << el.first.first << separator << el.first.second.month << ' ' << el.first.second.year << separator << el.second << '\n';
 		}
-		end = time_point;
-		elapsed_seconds = end - start;
-		std::cout << '\n' << "Time to write all data into file: " << elapsed_seconds.count() << " s\n";
+		log.EndPoint();
 		in.close();
 		out.close();
+		std::cout << "\nCompleted";
 	}
 	catch (std::exception& ex) {
 		std::cout << ex.what() << '\n';

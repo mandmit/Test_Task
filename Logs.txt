@@ -1,0 +1,39 @@
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:24:03 2022
+	Information: Finding separator and count columns.:0 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:24:03 2022
+	Information: Reading and parsing data from input_file.:280 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:24:03 2022
+	Information: Writing data into output_file.:0 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:37:51 2022
+	Information: Finding separator and count columns.:0 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:37:51 2022
+	Information: The needed column can't be found:0 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:43:01 2022
+	Information: Finding separator and count columns.:0 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:43:01 2022
+	Information: Error! The needed column can't be found!:0 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:43:41 2022
+	Information: Finding separator and count columns.:0 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:43:42 2022
+	Information: Reading and parsing data from input_file.:292 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:43:42 2022
+	Information: Writing data into output_file.:0 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:48:51 2022
+	Information: Finding separator and count columns.:0 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:48:52 2022
+	Information: Reading and parsing data from input_file.:293 ms
+
+Working with input file with name: inp.csv  and output file with name: out.csv Time: Thu Sep 29 15:48:52 2022
+	Information: Writing data into output_file.:0 ms
+
